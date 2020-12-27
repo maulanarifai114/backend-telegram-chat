@@ -59,7 +59,7 @@ const user = {
       data.username = username
     }
     if (bio) {
-      data.fullName = fullName
+      data.bio = bio
     }
     if (lat) {
       data.lat = lat
