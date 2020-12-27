@@ -23,9 +23,7 @@ app.use('/v1', routerServerV1)
 app.use('/upload', express.static('./upload'))
 
 app.use('*', (req, res) => {
-  helper.response(res, null, 404, {
-    message: 'URL Not Found'
-  })
+  helper.response(res, null, 404, 'URL Not Found')
 })
 
 // Initial Socket

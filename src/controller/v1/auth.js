@@ -7,40 +7,37 @@ const {
 } = require('uuid')
 
 
-const users = {
+const auth = {
 
   // Sign Up
   signUp: (req, res) => {
     const id = uuidv4() // Make id to uuidv4
     // Take value from Body
     const {
-      username,
+      fullName,
       email,
       password
     } = req.body
     // Check Email from Database
     model.checkUser(email)
       .then((result) => {
-        // If Email is registered
+        // If Email is registered, do response
         if (result.length > 0) {
-          return helper.response(res, null, 400, {
-            error: 'Email is already registered'
-          })
-        } else { // Else, do register
+          return helper.response(res, null, 400, 'Email is already registered')
+        } else {
+          // Else, do register
           bcrypt.genSalt(10, function (err, salt) {
             bcrypt.hash(password, salt, function (err, hash) {
               // Hass Password
               const data = {
                 id,
-                username,
+                fullName,
                 email,
                 password: hash,
               }
               // If Body is empty
-              if (data.username === '' || data.email === '' || data.password === '') {
-                return helper.response(res, null, 401, {
-                  message: `Cannot add register, some or all data is empty`
-                })
+              if (data.fullName === '' || data.email === '' || data.password === '') {
+                return helper.response(res, null, 401, 'Cannot add register, some or all data is empty')
               } else { // Else, Add User to Database
                 model.insertUser(data)
                   .then((result) => {
@@ -72,35 +69,26 @@ const users = {
       email,
       password
     } = req.body
-
-    // Error handling
+    // Add Email and Password from Body
     const data = {
       email,
       password
     }
-
     // If Body is empty
     if (data.email === '' || data.password === '') {
-      return helper.response(res, null, 401, {
-        message: `Cannot login, some or all data is empty`
-      })
+      return helper.response(res, null, 401, 'Cannot login, some or all data is empty')
     } else {
       // Check user from database
       model.checkUser(email)
         .then((result) => {
           const user = result[0]
-          console.log('user =', user);
-
           // Check user if not registered
           if (!user) {
-            return helper.response(res, null, 401, {
-              message: 'Your account is not registered '
-            })
+            return helper.response(res, null, 401, 'Your account is not registered')
           }
-
           // Compare Password
-          bcrypt.compare(password, user.password, function (err, resCheck) {
-            if (!resCheck) {
+          bcrypt.compare(password, user.password, function (err, check) {
+            if (!check) {
               return helper.response(res, null, 401, 'Password Wrong!')
             }
             delete user.password
@@ -130,4 +118,4 @@ const users = {
     }
   },
 }
-module.exports = users
+module.exports = auth
