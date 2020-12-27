@@ -20,7 +20,7 @@ app.use(morgan('dev'))
 
 // Main API
 app.use('/v1', routerServerV1)
-app.use('/upload', express.static('./upload'))
+app.use('/v1/upload', express.static('./upload'))
 
 app.use('*', (req, res) => {
   helper.response(res, null, 404, 'URL Not Found')

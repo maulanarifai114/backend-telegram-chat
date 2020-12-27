@@ -84,6 +84,26 @@ const user = {
     } else {
       return helper.response(res, null, 401, 'Cannot update data, some or all data is empty')
     }
+  },
+  updateImg(req, res) {
+    const img = req.file
+    const data = {}
+    if (img) {
+      data.img = `${process.env.BASE_URL}/upload/${req.file.filename}`
+    }
+    const id = req.params.id
+    model.updateUser(data, id)
+      .then((result) => {
+        const resultUpdateUser = result
+        if (resultUpdateUser.affectedRows === 0) {
+          helper.response(res, resultUpdateUser, 404, 'Id not found, cannot update image')
+        } else {
+          helper.response(res, 'Image has been updated', 200, null)
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
   }
 }
 
