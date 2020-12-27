@@ -11,5 +11,5 @@ router
   .get('/', verify.verifyAccess, user.getAllUser)
   .put('/img/:id', verify.verifyAccess, upload.uploadMulter.single('img'), validation.validation, user.updateImg)
   .put('/:id', verify.verifyAccess, user.updateUser)
-
+  .post('/msg', verify.verifyAccess, user.postMsg)
 module.exports = router

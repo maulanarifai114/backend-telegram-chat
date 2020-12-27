@@ -104,6 +104,36 @@ const user = {
       .catch((err) => {
         console.log(err)
       })
+  },
+  postMsg(req, res) {
+    const {
+      time,
+      msg,
+      senderId,
+      receiverId
+    } = req.body
+
+    const data = {
+      time,
+      msg,
+      senderId,
+      receiverId
+    }
+
+    if (data.msg === '' || data.senderId === '' || data.receiverId === '') {
+      helper.response(res, null, 400, 'Data must be added')
+    }
+
+    model.postMsg(data)
+      .then((result) => {
+        console.log(result);
+        helper.response(res, data, 200, null)
+      })
+      .catch((err) => {
+        console.log(err);
+        helper.response(res, null, 400, err)
+      })
+
   }
 }
 

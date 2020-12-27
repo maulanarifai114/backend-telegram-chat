@@ -14,6 +14,9 @@ const user = {
   },
   updateUser: (data, id) => {
     return actionQuery('UPDATE users SET ? WHERE id = ?', [data, id])
+  },
+  postMsg: (data) => {
+    return actionQuery('INSERT INTO messages SET ?', data)
   }
 }
 module.exports = user
