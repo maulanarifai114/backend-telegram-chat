@@ -10,6 +10,7 @@ const bodyParser = require('body-parser')
 const socket = require('socket.io')
 const helper = require('./src/helper/v1/help')
 const routerServerV1 = require('./src/routes/v1/routes')
+const model = require('./src/model/v1/user')
 
 app.use(cors())
 app.use(bodyParser.urlencoded({
@@ -35,7 +36,23 @@ const io = socket(server, {
 
 // Run Socket.io
 io.on("connection", (socket) => {
-  console.log('there someone connected ' + socket.id);
+  console.log('there someone connected ' + socket.id)
+  
+  socket.on('sendMsg',(data)=>{
+    socket.broadcast.emit('sendBack', data)
+    // io.emit('sendBack', data)
+    model.postMsg(data)
+      .then((result) => {
+        console.log(result);
+        // socket.emit('sendBack')
+        console.log('save data success')
+      })
+      .catch((err) => {
+        console.log(err);
+        // socket.emit('sendBack')
+        console.log('save data failed')
+      })
+  })
 
   socket.on("disconnect", () => {
     console.log('client disconnected')
