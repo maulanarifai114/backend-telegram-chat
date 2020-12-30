@@ -14,6 +14,7 @@ const user = {
         helper.response(res, null, 400, err)
       })
   },
+
   // Get All User
   getAllUser(req, res) {
     model.getAllUser()
@@ -24,6 +25,7 @@ const user = {
         helper.response(res, null, 400, err)
       })
   },
+
   // Get All Messages
   getAllMsg(req, res) {
     model.getAllMsg()
@@ -35,10 +37,12 @@ const user = {
         helper.response(res, null, 400, err)
       })
   },
+
   // Update User (Except Image)
   updateUser(req, res) {
     // Get data from Body
     const {
+      status,
       fullName,
       phone,
       username,
@@ -49,6 +53,9 @@ const user = {
     // Initialization Data
     const data = {}
     // Checking Body
+    if (status) {
+      data.status = status
+    }
     if (fullName) {
       data.fullName = fullName
     }
@@ -67,7 +74,7 @@ const user = {
     if (lng) {
       data.lng = lng
     }
-    if (data.hasOwnProperty('fullName') || data.hasOwnProperty('phone') || data.hasOwnProperty('username') || data.hasOwnProperty('bio') || data.hasOwnProperty('lat') || data.hasOwnProperty('lng')) {
+    if (data.hasOwnProperty('status') || data.hasOwnProperty('fullName') || data.hasOwnProperty('phone') || data.hasOwnProperty('username') || data.hasOwnProperty('bio') || data.hasOwnProperty('lat') || data.hasOwnProperty('lng') ) {
       const id = req.params.id
       model.updateUser(data, id)
         .then((result) => {
@@ -85,6 +92,8 @@ const user = {
       return helper.response(res, null, 401, 'Cannot update data, some or all data is empty')
     }
   },
+
+  // Update Image
   updateImg(req, res) {
     const img = req.file
     const data = {}
@@ -105,6 +114,8 @@ const user = {
         console.log(err)
       })
   },
+
+  // Post Messages (Unfunctinaly)
   postMsg(req, res) {
     const {
       time,
