@@ -54,7 +54,8 @@ io.on("connection", (socket) => {
       })
   })
 
-  socket.on("disconnect", () => {
+  socket.on("disconnect", (data) => {
+    console.log('logout', data);
     console.log('client disconnected')
   });
 });
