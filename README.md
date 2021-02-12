@@ -1,12 +1,12 @@
 <h1 align="center">Telegrum - Backend</h1>
 <p align="center">
-  <img src="https://i.postimg.cc/vG3vkCXZ/nodejs.png"/>
+  <img width="400" src="https://i.postimg.cc/vG3vkCXZ/nodejs.png"/>
 </p>
 <p align="center">
-  <img src="https://i.postimg.cc/4xdpXNwN/express.png"/>
+  <img width="400" src="https://i.postimg.cc/4xdpXNwN/express.png"/>
 </p>
 <p align="center">
-  <img src="https://i.postimg.cc/8z0McQnd/socketio.png"/>
+  <img width="400" src="https://i.postimg.cc/8z0McQnd/socketio.png"/>
 </p>
 
 <p>
