@@ -58,7 +58,7 @@ SECRET_KEY = YOUR_SECRET_KEY_FOR_JWT
 
 ## Related Project
 
-- [Frontend Telegram](https://github.com/maulanarifai114/frontend-telegram)
+- [Frontend Telegram](https://github.com/maulanarifai114/frontend-telegram-chat)
 
 <!-- CONTACT -->
 
